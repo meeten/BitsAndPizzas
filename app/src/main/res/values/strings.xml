@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Bits And Pizzas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_1">Выберите пиццу</string>
+    <string name="roman">Римская</string>
+    <string name="sicilian">Сицилийская</string>
+    <string name="hint_2">Выберите дополнительный ингредиент</string>
+    <string name="parmesan">Пармезан</string>
+    <string name="chili_oil">Острый соус</string>
+</resources>
