@@ -9,43 +9,45 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.appbar.MaterialToolbar
+import com.example.bitsandpizzas.databinding.FragmentOrderBinding
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
 class OrderFragment : Fragment() {
+    private var _binding: FragmentOrderBinding? = null
+    private val binding get() = _binding!!
+
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_order, container, false)
+    ): View {
+        _binding = FragmentOrderBinding.inflate(inflater)
+        val view = binding.root
 
-        val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
 
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
-
-        fab.setOnClickListener {
-            val typesPizzas = view.findViewById<RadioGroup>(R.id.types_pizzas)
-
+        binding.fab.setOnClickListener {
             var text = ""
-            if (typesPizzas.checkedRadioButtonId == -1) {
+            if (binding.typesPizzas.checkedRadioButtonId == -1) {
                 text = "Выберите пиццу"
                 Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
             } else {
-                text += (when (typesPizzas.checkedRadioButtonId) {
+                text += (when (binding.typesPizzas.checkedRadioButtonId) {
                     R.id.roman -> "Римская пицца"
                     else -> "Сицилийская пицца"
                 })
-                val parmesan = view.findViewById<Chip>(R.id.parmesan)
-                val chiliOil = view.findViewById<Chip>(R.id.chili_oil)
-                text += if (parmesan.isChecked) ", с пармезаном" else ""
-                text += if (chiliOil.isChecked) ", с острым соусом" else ""
-                Snackbar.make(fab, text, Snackbar.LENGTH_LONG).show()
+                text += if (binding.parmesan.isChecked) ", с пармезаном" else ""
+                text += if (binding.chiliOil.isChecked) ", с острым соусом" else ""
+                Snackbar.make(binding.fab, text, Snackbar.LENGTH_LONG).show()
             }
         }
         return view
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }
